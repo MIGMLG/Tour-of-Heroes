@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages and Heroku
+
+on:
+  push: 
+    branches:   
+      - master
+  pull_request:
+      branches: 
+        -master
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.2
+      with:
+        node-version: '14.x'
+    - name: Build
+      working-directory: ./angular-tour-of-heroes
+      run: |
+         npm install -g @angular/cli
+         npm install
+         ng build --prod --base-href="/Tour-of-Heroes/"
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v2
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: angular-tour-of-heroes/dist/angular-tour-of-heroes
