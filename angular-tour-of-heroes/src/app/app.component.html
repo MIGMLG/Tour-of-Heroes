@@ -1,4 +1,7 @@
 <h1>{{title}}</h1>
-<app-heroes></app-heroes>
-<app-messages></app-messages>
+<nav> <!-- Allow to switch beetween the two views, one is loaded by default because of the redirect in app routing -->
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/heroes">Heroes</a>
+</nav>
 <router-outlet></router-outlet>
+<app-messages></app-messages>
