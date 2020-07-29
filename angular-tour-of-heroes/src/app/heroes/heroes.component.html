@@ -2,16 +2,27 @@
 <ul class="heroes">
     <!-- OLD VERSION -->
     <!-- <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero"> -->
-        <!-- Class Binding for Styling -->
-        <!-- <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <!-- Class Binding for Styling -->
+    <!-- <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li> -->
     <!-- NEW VERSION -->
     <li *ngFor="let hero of heroes">
         <a routerLink="/detail/{{hero.id}}">
             <span class="badge">{{hero.id}}</span> {{hero.name}}
         </a>
+        <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
     </li>
 </ul>
+
+<div>
+    <label>Hero Name:
+        <input #heroName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+        Add Hero
+    </button>
+</div>
 
 <!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
 <!-- Send the selected hero to HeroDetail Component, One way data Binding -->
